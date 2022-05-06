@@ -1,5 +1,5 @@
 # ValueOrError
-Header only library that defines a class that holds either a value or an error value. Intended to be used as the return type of functions where the full range of possible values is necessary, thus avoiding arbitrarily chosen values as indicatives of errors. Can be used in a freestanding environment if <type_traits> is available.
+Header only library that defines a class that holds either a value or an error value. Intended to be used as the return type of functions where the full range of possible values is necessary, thus avoiding arbitrarily chosen values as indicatives of errors. Can be used in a freestanding environment if <type_traits> is available and std::move and std::forward are implemented.
 
 ## Usage
 
@@ -8,7 +8,7 @@ Header only library that defines a class that holds either a value or an error v
 
 hls::ValueOrError<int, int> my_nice_function(int i) {
   if(i == 10) {
-    return hls::value(i);
+    return hls::value(i);      // Note that specifying whether is an error or a value is required on every return statement. 
   }
   
   return hls::error(i);
@@ -23,9 +23,12 @@ int main() {
     // Do stuff with the error code...
     return -1;
   }
+  else if(a.is_value()) {                     // Just for the sake of desmonstrating. If it is not an error, it is  surely a value.
+    auto value = a.get_value();
+    // Do stuff with the value
   
-  auto value = a.get_value();
-  // Do stuff with the value
+  }
+  
   
   return 0;
 }
