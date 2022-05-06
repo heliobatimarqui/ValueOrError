@@ -3,7 +3,7 @@ Header only library that defines a class that holds either a value or an error v
 
 ## Usage
 
-```
+```cpp
 #include "valueorerror.hpp"
 
 hls::ValueOrError<int, int> my_nice_function(int i) {
